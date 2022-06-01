@@ -1,16 +1,13 @@
 const productsModel = require('../models/products');
 
-const getAll = () => {
-  const getAllProducts = productsModel.getAll();
-  return getAllProducts;
-};
+const getAll = () => productsModel.getAll();
 
-const getById = (id) => {
-  const getProductById = productsModel.getById(id);
-  return getProductById;
-};
+const getById = (id) => productsModel.getById(id);
+
+const add = (name, quantity) => productsModel.add(name, quantity);
 
 module.exports = {
   getAll,
   getById,
+  add,
 };
