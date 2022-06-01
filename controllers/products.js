@@ -1,6 +1,6 @@
 const express = require('express');
 const productsService = require('../services/products');
-const middlewares = require('../middlewares/validation');
+const middlewares = require('../middlewares');
 
 const routes = express.Router();
 
@@ -25,7 +25,7 @@ routes.get('/:id', async (req, res, next) => {
   }
 });
 
-routes.use(middlewares);
+routes.use(middlewares.productValidation);
 
 routes.post('/', async (req, res) => {
   const { name, quantity } = req.body;

@@ -1,5 +1,6 @@
 const express = require('express');
 const salesService = require('../services/sales');
+const middlewares = require('../middlewares');
 
 const routes = express.Router();
 
@@ -22,5 +23,7 @@ routes.get('/:id', async (req, res, next) => {
     next({ status: 404, message: e.message });
   }
 });
+
+routes.use(middlewares.salesValidation);
 
 module.exports = routes;
