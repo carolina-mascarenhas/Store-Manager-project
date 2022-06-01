@@ -28,10 +28,14 @@ routes.get('/:id', async (req, res, next) => {
 routes.use(middlewares.productValidation);
 
 routes.post('/', async (req, res) => {
-  const { name, quantity } = req.body;
+  try {
+    const { name, quantity } = req.body;
 
-  const addNewProduct = await productsService.add(name, quantity);
-  res.status(201).json(addNewProduct);
+    const addNewProduct = await productsService.add(name, quantity);
+    res.status(201).json(addNewProduct);
+  } catch (e) {
+    res.status(409).json({ message: e.message });
+  }
 });
 
 module.exports = routes;

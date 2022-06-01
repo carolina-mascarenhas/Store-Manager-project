@@ -16,8 +16,13 @@ const add = async (name, quantity) => {
   };
 };
 
+const checkProductByName = (name) => connection.execute(
+  'SELECT * FROM products WHERE name = ?;', [name],
+);
+
 module.exports = {
   getAll,
   getById,
   add,
+  checkProductByName,
 };
