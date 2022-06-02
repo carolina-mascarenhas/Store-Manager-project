@@ -32,10 +32,13 @@ const updateById = (name, id, quantity) => {
   };
 };
 
+const deleteById = (id) => connection.execute('DELETE FROM products WHERE id = ?;', [id]);
+
 module.exports = {
   getAll,
   getById,
   add,
   checkProductByName,
   updateById,
+  deleteById,
 };

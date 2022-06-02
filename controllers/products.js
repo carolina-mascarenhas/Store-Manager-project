@@ -25,6 +25,18 @@ routes.get('/:id', async (req, res, next) => {
   }
 });
 
+routes.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await productsService.deleteById(id);
+
+    res.status(204).end();
+  } catch (e) {
+    res.status(404).json({ message: e.message });
+  }
+});
+
 routes.use(middlewares.productValidation);
 
 routes.post('/', async (req, res) => {
