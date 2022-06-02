@@ -28,13 +28,27 @@ routes.get('/:id', async (req, res, next) => {
 routes.use(middlewares.productValidation);
 
 routes.post('/', async (req, res) => {
-  try {
-    const { name, quantity } = req.body;
+  const { name, quantity } = req.body;
 
+  try {
     const addNewProduct = await productsService.add(name, quantity);
+
     res.status(201).json(addNewProduct);
   } catch (e) {
     res.status(409).json({ message: e.message });
+  }
+});
+
+routes.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
+
+  try {
+    const updateProductById = await productsService.updateById(name, id, quantity);
+    
+    res.status(200).json(updateProductById);
+  } catch (e) {
+    res.status(404).json({ message: e.message });
   }
 });
 
