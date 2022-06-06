@@ -15,7 +15,7 @@ const add = async (body) => {
   // console.log('console do id:', id);
 
   const arr = [];
-  body.map(({ productId, quantity }) => arr.push(salesModels.addSalesProduct(
+  body.map(({ productId, quantity }) => arr.push(salesModels.addSalesProducts(
     id,
     productId,
     quantity,
