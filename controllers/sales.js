@@ -26,4 +26,12 @@ routes.get('/:id', async (req, res, next) => {
 
 routes.use(middlewares.salesValidation);
 
+routes.post('/', async (req, res) => {
+  // const { productId, quantity, arr } = req.body;
+
+  const newSale = await salesService.add(req.body);
+
+  res.status(201).json(newSale);
+});
+
 module.exports = routes;
