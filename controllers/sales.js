@@ -34,4 +34,12 @@ routes.post('/', async (req, res) => {
   res.status(201).json(newSale);
 });
 
+routes.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const [{ productId, quantity }] = req.body;
+
+  const updateSale = await salesService.update(id, productId, quantity);
+  res.status(200).json(updateSale);
+});
+
 module.exports = routes;
