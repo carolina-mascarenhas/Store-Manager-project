@@ -6,7 +6,7 @@ const getAll = async (_req, res) => {
   res.status(200).json(getProducts);
 };
 
-const getById = async (req, res, next) => {
+const getById = async (req, res, _next) => {
   const { id } = req.params;
 
   try {
@@ -14,8 +14,8 @@ const getById = async (req, res, next) => {
 
     res.status(200).json(getProductsById[0]);
   } catch (e) {
-    next({ status: 404, message: e.message });
-    // res.status(404).json({ message: e.message });
+    res.status(404).json({ message: e.message });
+    // next({ status: 404, message: e.message });
   }
 };
 
