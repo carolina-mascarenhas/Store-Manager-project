@@ -2,7 +2,13 @@ const productsModel = require('../models/products');
 
 const getAll = () => productsModel.getAll();
 
-const getById = (id) => productsModel.getById(id);
+const getById = async (id) => {
+  const [checkId] = await productsModel.getById(id);
+
+  if (checkId.length !== 0) return productsModel.getById(id);
+
+  throw new Error('Product not found');
+}; 
 
 const add = async (name, quantity) => {
   const [returnFromModels] = await productsModel.checkProductByName(name);

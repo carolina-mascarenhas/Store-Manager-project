@@ -1,31 +1,25 @@
-const express = require('express');
 const productsService = require('../services/products');
-const middlewares = require('../middlewares');
 
-const routes = express.Router();
-
-routes.get('/', async (req, res) => {
+const getAll = async (_req, res) => {
   const [getProducts] = await productsService.getAll();
 
   res.status(200).json(getProducts);
-});
+};
 
-routes.get('/:id', async (req, res, next) => {
+const getById = async (req, res, next) => {
   const { id } = req.params;
 
   try {
     const [getProductsById] = await productsService.getById(id);
-
-    if (getProductsById.length === 0) throw new Error('Product not found');
 
     res.status(200).json(getProductsById[0]);
   } catch (e) {
     next({ status: 404, message: e.message });
     // res.status(404).json({ message: e.message });
   }
-});
+};
 
-routes.delete('/:id', async (req, res) => {
+const deleteById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -35,11 +29,9 @@ routes.delete('/:id', async (req, res) => {
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
-});
+}; 
 
-routes.use(middlewares.productValidation);
-
-routes.post('/', async (req, res) => {
+const add = async (req, res) => {
   const { name, quantity } = req.body;
 
   try {
@@ -49,9 +41,9 @@ routes.post('/', async (req, res) => {
   } catch (e) {
     res.status(409).json({ message: e.message });
   }
-});
+};
 
-routes.put('/:id', async (req, res) => {
+const updateById = async (req, res) => {
   const { id } = req.params;
   const { name, quantity } = req.body;
 
@@ -62,6 +54,12 @@ routes.put('/:id', async (req, res) => {
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
-});
+};
 
-module.exports = routes;
+module.exports = {
+  getAll,
+  getById,
+  deleteById,
+  add,
+  updateById,
+};
