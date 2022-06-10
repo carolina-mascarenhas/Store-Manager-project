@@ -1,16 +1,12 @@
-const express = require('express');
 const salesService = require('../services/sales');
-const middlewares = require('../middlewares');
 
-const routes = express.Router();
-
-routes.get('/', async (_req, res) => {
+const getAll = async (_req, res) => {
   const [getAllSales] = await salesService.getAll();
 
   res.status(200).json(getAllSales);
-});
+};
 
-routes.get('/:id', async (req, res, next) => {
+const getById = async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -22,24 +18,27 @@ routes.get('/:id', async (req, res, next) => {
   } catch (e) {
     next({ status: 404, message: e.message });
   }
-});
+};
 
-routes.use(middlewares.salesValidation);
-
-routes.post('/', async (req, res) => {
+const add = async (req, res) => {
   // const { productId, quantity, arr } = req.body;
 
   const newSale = await salesService.add(req.body);
 
   res.status(201).json(newSale);
-});
+};
 
-routes.put('/:id', async (req, res) => {
+const update = async (req, res) => {
   const { id } = req.params;
   const [{ productId, quantity }] = req.body;
 
   const updateSale = await salesService.update(id, productId, quantity);
   res.status(200).json(updateSale);
-});
+};
 
-module.exports = routes;
+module.exports = {
+  getAll,
+  getById,
+  add,
+  update,
+};
