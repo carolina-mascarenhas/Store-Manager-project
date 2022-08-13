@@ -4,7 +4,7 @@ Neste projeto desenvolvi uma API utilizando a arquitetura MSC. Trata-se de um si
 
 O banco de dados para a gestão dos dados é o MySQL.
 
-Os testes unitários de cama camada encontram-se na pasta `test/unit`.
+Os testes unitários de cada camada encontram-se na pasta `test/unit`.
 
 ## Orientações
 
